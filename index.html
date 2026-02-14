@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FoodLink App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- NAV BAR -->
+    <nav class="navbar">
+        <div class="logo"><i class="fa-solid fa-leaf"></i> FoodLink</div>
+        <!-- 3-Line Hamburger Icon -->
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- SLIDE-OUT MENU -->
+    <div class="nav-menu" id="navMenu">
+        <h3>Menu</h3>
+        <a href="#" onclick="showScreen('screen-login')"> Login / Home</a>
+        <a href="#" onclick="showScreen('screen-donor')"> Donor Dashboard</a>
+        <a href="#" onclick="showScreen('screen-post')"> Post Surplus Form</a>
+        <a href="#" onclick="showScreen('screen-ngo')"> NGO Dashboard</a>
+        <a href="#" onclick="showScreen('screen-details')"> Donation Details</a>
+        <a href="#" onclick="showScreen('screen-tracking')"> Tracking</a>
+        <a href="#" onclick="showScreen('screen-admin')"> Admin Dashboard</a>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="app-container">
+
+        <!-- SCREEN 1: LOGIN -->
+        <section id="screen-login" class="screen active">
+            <div class="center-content">
+                <h2>Select Role</h2>
+                <p>Welcome to FoodLink. Who are you?</p>
+                <div class="role-grid">
+                    <button class="role-btn" onclick="showScreen('screen-donor')">
+                        <i class="fa-solid fa-store"></i> Donor
+                    </button>
+                    <button class="role-btn" onclick="showScreen('screen-ngo')">
+                        <i class="fa-solid fa-hand-holding-heart"></i> NGO
+                    </button>
+                    <button class="role-btn" onclick="showScreen('screen-admin')">
+                        <i class="fa-solid fa-user-shield"></i> Admin
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 2: DONOR DASHBOARD -->
+        <section id="screen-donor" class="screen">
+            <h2>Donor Dashboard</h2>
+            <div class="stats-row">
+                <div class="stat-card"><h3>12</h3><small>Active</small></div>
+                <div class="stat-card"><h3>850kg</h3><small>Rescued</small></div>
+            </div>
+            
+            <button class="action-btn" onclick="showScreen('screen-post')">
+                <i class="fa-solid fa-plus-circle"></i> Post New Surplus
+            </button>
+
+            <h3>Active Donations</h3>
+            <div class="list-item">
+                <div>
+                    <strong>50 Loaves Bread</strong><br>
+                    <small>Expires in 2h</small>
+                </div>
+                <span class="badge pending">Pending</span>
+            </div>
+            <div class="list-item" onclick="showScreen('screen-tracking')">
+                <div>
+                    <strong>Canned Goods</strong><br>
+                    <small>Click to Track</small>
+                </div>
+                <span class="badge picked">Picked Up</span>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: POST FORM -->
+        <section id="screen-post" class="screen">
+            <h2>Post Surplus</h2>
+            <form onsubmit="event.preventDefault(); showScreen('screen-donor'); alert('Donation Posted!');">
+                <label>Food Name</label>
+                <input type="text" placeholder="e.g. Rice & Chicken">
+                
+                <label>Category</label>
+                <select><option>Cooked Meals</option><option>Raw Ingredients</option></select>
+                
+                <div class="row">
+                    <input type="text" placeholder="Qty (kg)">
+                    <input type="time">
+                </div>
+                
+                <div class="map-placeholder"><i class="fa-solid fa-map-pin"></i> Pickup Location</div>
+                
+                <button class="submit-btn">Publish Donation</button>
+                <button type="button" class="cancel-btn" onclick="showScreen('screen-donor')">Cancel</button>
+            </form>
+        </section>
+
+        <!-- SCREEN 4: NGO DASHBOARD -->
+        <section id="screen-ngo" class="screen">
+            <h2>NGO Feed</h2>
+            <div class="filter-bar">
+                <span class="pill active">All</span>
+                <span class="pill">Urgent</span>
+                <span class="pill">Near Me</span>
+            </div>
+            
+            <!-- Food Item 1 -->
+            <div class="food-card">
+                <div class="food-icon"><i class="fa-solid fa-carrot"></i></div>
+                <div class="food-info">
+                    <h4>Fresh Vegetables</h4>
+                    <p>0.5km away • <span style="color:red">Expires 2h</span></p>
+                    <button class="sm-btn" onclick="showScreen('screen-details')">View Details</button>
+                </div>
+            </div>
+
+            <!-- Food Item 2 -->
+            <div class="food-card">
+                <div class="food-icon"><i class="fa-solid fa-bread-slice"></i></div>
+                <div class="food-info">
+                    <h4>Bakery Surplus</h4>
+                    <p>1.2km away • Expires 5h</p>
+                    <button class="sm-btn" onclick="showScreen('screen-details')">View Details</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 5: DETAILS -->
+        <section id="screen-details" class="screen">
+            <button class="back-link" onclick="showScreen('screen-ngo')">← Back</button>
+            <h2>Donation Details</h2>
+            <div class="detail-box">
+                <h1>Fresh Vegetables</h1>
+                <p><i class="fa-solid fa-store"></i> <strong>Donor:</strong> Whole Foods Market</p>
+                <p><i class="fa-solid fa-weight-hanging"></i> <strong>Qty:</strong> 15 kg</p>
+                <p><i class="fa-solid fa-location-dot"></i> <strong>Distance:</strong> 0.5 km</p>
+                <hr>
+                <button class="action-btn" onclick="showScreen('screen-tracking')">Accept Donation</button>
+            </div>
+        </section>
+
+        <!-- SCREEN 6: TRACKING -->
+        <section id="screen-tracking" class="screen">
+            <h2>Live Tracking</h2>
+            <div class="tracking-card">
+                <h4>Order #4024 Status</h4>
+                <ul class="progressbar">
+                    <li class="active">Posted</li>
+                    <li class="active">Accepted</li>
+                    <li class="current">Picked Up</li>
+                    <li>Delivered</li>
+                </ul>
+                <p style="text-align: center; margin-top: 20px; color: #666;">
+                    Driver is approaching the pickup location.
+                </p>
+                <button class="submit-btn" onclick="showScreen('screen-ngo')">Confirm Delivery</button>
+            </div>
+        </section>
+
+        <!-- SCREEN 7: ADMIN -->
+        <section id="screen-admin" class="screen">
+            <h2>Admin Analytics</h2>
+            <div class="stats-row">
+                <div class="stat-card dark"><h3>1,200</h3><small>Meals</small></div>
+                <div class="stat-card dark"><h3>45</h3><small>Donors</small></div>
+                <div class="stat-card dark"><h3>98%</h3><small>Success</small></div>
+            </div>
+
+            <div class="chart-box">
+                <h4>Monthly Impact</h4>
+                <div class="bars">
+                    <div class="bar" style="height: 40%"></div>
+                    <div class="bar" style="height: 70%"></div>
+                    <div class="bar" style="height: 50%"></div>
+                    <div class="bar" style="height: 90%"></div>
+                    <div class="bar" style="height: 60%"></div>
+                </div>
+                <div class="labels">
+                    <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JAVASCRIPT FOR NAVIGATION -->
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("navMenu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        }
+
+        function showScreen(screenId) {
+            // 1. Hide all screens
+            var screens = document.querySelectorAll('.screen');
+            screens.forEach(function(screen) {
+                screen.classList.remove('active');
+            });
+
+            // 2. Show the specific screen
+            var activeScreen = document.getElementById(screenId);
+            if(activeScreen) {
+                activeScreen.classList.add('active');
+            }
+
+            // 3. Close menu
+            document.getElementById("navMenu").style.display = "none";
+        }
+    </script>
+</body>
+</html>
